@@ -11,16 +11,18 @@
                  <li class='confirm_items'>
                         <ol class="cofirm_con_third clearfix">
                             <li> 姓名</li>
-                            <li>逾期金额</li>
+                            <li>身份证号</li>
                             <li>逾期天数</li>
+                            <li>服务状态</li>
                         </ol>
                     </li>
                 <foreach name="list_overdue_old" item="vo">
                    <li class='confirm_items'>
                          <ol class="cofirm_con_third clearfix">
                             <li>{$vo.borrower_name}</li>
-                            <li>{$vo.money}</li>
+                            <li></li>
                             <li>{$vo.overdue_day}</li>
+                            <li>{$vo.money}</li>
                         </ol>
                     </li> 
                  </foreach>

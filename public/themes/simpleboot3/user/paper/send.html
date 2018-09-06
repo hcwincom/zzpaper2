@@ -3,8 +3,16 @@
 </head>
 <body>
     <section class='main'>
+        <div class="guninfo backg-tblue">
+            <p class="animate">
+                温馨提示：若对方要求您预先支付相关费用，请务必谨慎处理
+            </p>
+        </div>
+        <div class="guninfoTop backg-tblue">
+            <p>我是借款人   我是出借人</p>
+        </div>
         <form action="">
-            <ul class='box form-box box-right'>
+            <ul class='box form-boxpadding box-right'>
                 <li class="box-li padding-all">
                     <div class='box-tit'>借款金额：</div>
                     <div class='box-con box-con-danwei'>
@@ -12,16 +20,17 @@
                         <span>元</span>
                     </div>
                 </li>
-                
                 <li class="box-li padding-all">
-                    <div class='box-tit'>还款期限：</div>
+                    <div class='box-tit'>借款日期：</div>
+                    <div class='box-con'><input type="text" name='borrow_date' id='date1' readonly></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>还款日期：</div>
                     <div class='box-con'><input type="text" name='repayment_date' id='date2'  readonly></div>
                 </li>
                 <li class="box-li padding-all">
                     <div class='box-tit'>年化率</div>
                     <div class='box-con'>
-                        <!-- <span class='drop_down_btn' id='drop_down_btn1'>0%</span>    
-                        <input type="hidden" name='annual_rate' value='0%'> -->
                         <select name="" id="annual_rate">
                         <foreach name="$Think.config.rate" item="vo"> 
 	                          <option value="{$vo}">{$vo}%</option>
@@ -30,24 +39,22 @@
                     </div>
                 </li>
                 
-                <li class="box-li padding-all">
-                    <div class='box-tit'>借款用途：</div>
-                    <div class='box-con'>
-                        <!-- <span class='drop_down_btn' id='drop_down_btn2'>借款用途</span>  -->
-                        <!-- <input type="hidden" name='usage_loan' value='借款用途'> -->
-                        <select name="" id="usage_loan">
-                         <foreach name="$Think.config.use" item="vo"> 
-	                          <option value="{$vo}">{$vo}</option>
-	                     </foreach>
-                           
-                        </select>
-
-                    </div>
-                </li>
                 <li class="box-li padding-all box-li-long">
                     <div class='box-tit'>对方姓名(<eq name="send_type" value="1">借款人<else/>出借人</eq>)：</div>
                     <div class='box-con'><input type="text" name='name' placeholder='请输入对方姓名' required></div>
                 </li>
+                <li class="padding-all">
+                    <div class='box-tit'>借款用途：</div>
+                    <div class='purpose_loan'>
+                        <input id="usage" type="hidden" name='usage_loan'>
+                            <ul>
+                                <foreach name="$Think.config.use" item="vo">
+                                   <li><a href="javascript:void(0);">{$vo}</a></li>
+                                </foreach>
+                            </ul>    
+                    </div>
+                </li>
+
                 <li class="box-li padding-all">
                    <div class="protocol">
                        <label for="" class='checkbox-label'>
@@ -55,24 +62,22 @@
                             <span class="icon icon-mess icon_mess9"></span>
                        </label>
                        
-                       已阅读<a href="{:url('user/public/protocol',['name'=>'borrower'])}">《借款协议》</a>
+                       已同意<a href="{:url('user/public/protocol',['name'=>'borrower'])}">《借款协议》</a>
                       
                    </div>
                 </li>
                 <p class='tip box-p'>风险提示</p>
-                <p class=' red'>此平台只提供凭证，生成借条时请仔细核对信息在确认。</p>
+                <p class=' red' style="font-size:1.2rem;">此平台只提供凭证，生成借条时请仔细核对信息在确认。</p>
               
                  <p>&nbsp;&nbsp;<span class="error-tip red">{$error}</span></p>
             </ul>
             
             <div class="btn-red  btn-big">
             	<input type="hidden" name="send_type" value="{$send_type}"/>
-                <button type="button" class="btnsub"/>提交</button>
+                <button type="button" class="btnsub"/>下一步</button>
             </div>
         </form>
-
-
-        
+      <a href="{:url('send_affirm')}">ddddddd</a>
          <!-- 确认操作 -->
         
         <include file="public@psw" />   
@@ -96,12 +101,12 @@
                 display:display,
                 lang:lang
             });
-             $("#usage_loan").mobiscroll().select({
-                    theme: theme,
-                    mode: mode,
-                    display: display,
-                    lang: lang
-                });
+            //  $("#usage_loan").mobiscroll().select({
+            //         theme: theme,
+            //         mode: mode,
+            //         display: display,
+            //         lang: lang
+            //     });
     </script>
     <script>
   
@@ -122,7 +127,13 @@
         }       
         // 日期插件
         $(function(){
-            
+            //  laydate.render({
+            //     elem: '#date1',
+            //     value: GetDateStr(0),
+            //     istoday: true,
+            //     min:0
+            // });
+
             laydate.render({
                 elem: '#date2',
                 value: GetDateStr(1),
@@ -131,8 +142,11 @@
             });
          });
  
-     
-
+            $(".purpose_loan ul li a").click(function () {
+                $(this).addClass("active").parent().siblings().children("a").removeClass("active");
+                var useName = $(this).parents().find(".active").html();
+                $("#usage").val(useName); 
+            });
 
          // 阅读选中
          $('.checkbox-label').click(function(){
@@ -143,7 +157,9 @@
           $(".btnsub").click(function () {
               var money = $.trim($('input[name="borrowing_balance"]').val());
               var name = $.trim($('input[name="name"]').val());
-              var use = $.trim($('#usage_loan_dummy').val());
+              var use = $.trim($('input[name="usage_loan"]').val());
+              console.log("tt");
+              console.log(use);
               if (money == '' || isMoney(money) == false) {
                   $('.error-tip').text('提示：请输入正确金额');
                   $('input[name="borrowing_balance"]').focus();
@@ -164,42 +180,42 @@
             });
         
          // 输入密码，确定
-         $('.sure-btn-2').click(function(){
-         	  
-         	 var money=$.trim($('input[name="borrowing_balance"]').val());
-         	 var name=$.trim($('input[name="name"]').val());
-         	 var send_type=$.trim($('input[name="send_type"]').val());
-         	 var rate=parseInt($('#annual_rate_dummy').val().split('%')[0]);
-             
-         	 var use=$.trim($('#usage_loan_dummy').val());
-         	 var end=$.trim($('input[name="repayment_date"]').val());
-             var psw=$.trim($('.promit-input').val());
-             
-            if( psw== '' || isPassword(psw) == false){ 
-                $('.promit-input').focus(); 
-                $('.pop_up .error-tip').text('请输入6位数字密码'); 
-                return false;
-            }
-          
-            psw_hide();
-             
+
+         $(".btnsub").click(function () {
+            var money = $.trim($('input[name="borrowing_balance"]').val());
+             var name = $.trim($('input[name="name"]').val());
+             var send_type = $.trim($('input[name="send_type"]').val());
+             var rate = parseInt($('#annual_rate_dummy').val().split('%')[0]);
+
+             var use = $.trim($('input[name="usage_loan"]').val());
+             var end = $.trim($('input[name="repayment_date"]').val());
              //ajax提交
              $.ajax({
                  type: 'POST',
-                 url: "{:url('user/paper/ajax_send')}",
+                 url: "",
                  dataType: 'json',
-                 data:{'psw':psw,'money':money,'name':name,'send_type':send_type,'rate':rate,'use':use,'end':end},
-                 success: function(data){ 
-                 	$('.error-tip').text(data.msg); 
-                 	if(data.url!=''){
-                 	   location.href=data.url; 
-                 	}  
+                 data: {'money': money, 'name': name, 'send_type': send_type, 'rate': rate, 'use': use, 'end': end },
+                 success: function (data) {
+                     $('.error-tip').text(data.msg);
+                     if (data.url != '') {
+                         location.href = data.url;
+                     }
                  },
-                 error: function(xhr, type){
-                 	$('.error-tip').text('服务器连接失败');  
-                 } 
+                 error: function (xhr, type) {
+                     $('.error-tip').text('服务器连接失败');
+                 }
              });
              return false;
+             
          });
+
+
+
+
+
+
+
+
+
       </script>
   

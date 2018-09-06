@@ -187,6 +187,24 @@ class InfoController extends UserBaseController
         return $this->fetch();
         
     }
+    // 延期
+    public function postpone(){
+        return $this->fetch();
+    }
+
+    // 延期确认
+    public function postpone_sure(){
+        return $this->fetch();
+    }
+
+    // 消单
+    public function single_elimination(){
+        
+        return $this->fetch();
+    }
+
+
+
     
     /* 提交申请 */
     public function ajax_reply(){

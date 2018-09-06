@@ -1,16 +1,21 @@
 <include file="public@head" />
 </head>
 <body>
-  
+        
         <form action="" id='loan_detail'>
+            <div class="tobe_confirm backg-tblue">
+                <p>
+                    待确认详情
+                </p>
+            </div>
             <ul class='box form-box box-right'>
-                <li class="box-img">
+                <!-- <li class="box-img">
                     <img src="{:cmf_get_image_url($info_reply.avatar)}" alt="{$info_reply.name}" class="box-conImg">
-                </li>
+                </li> -->
                 <li class="box-li padding-all">
                     <div class='box-tit'>借款人姓名：</div>
                     <div class='box-con'>
-                        <a href="{:url('user/paper/search_paper',['oid'=>$info_paper.oid])}" class="box-cona">负债查询</a>
+                        <!-- <a href="{:url('user/paper/search_paper',['oid'=>$info_paper.oid])}" class="box-cona">负债查询</a> -->
                         <input type="text" name='identity_name' value='{$info_paper.borrower_name}' readonly>
                        
                     </div>
@@ -56,8 +61,13 @@
                     <div class='box-tit gray'>申请时间：</div>
                        <div class='box-con'><input type="text" value="{$info_reply.insert_time|date='Y-m-d H:i',###}"  readonly></div>  
                 </li>
+                <li class="box-li Liabilities">
+                    <div>
+                        <a href="{:url('user/paper/search_paper',['oid'=>$info_paper.oid])}">负债详情查询</a>
+                    </div>
+                </li>
                  <li class="box-li padding-all box-li-long">
-                    <div class='box-tit gray'>申请详情：</div>
+                    <div class='box-tit gray'>相关申请详情：</div>
                 </li>
             <switch name="info_reply.type">
               <case value="send">
@@ -140,8 +150,6 @@
             </ul>
      		
         </form>
-
-    
        <!-- 同意确认操作 -->
        <div class="pop_up pop_up1 border-radius-10 " style='display:none;'>
             <p>&nbsp;&nbsp;<span class="error-tip red"></span></p>

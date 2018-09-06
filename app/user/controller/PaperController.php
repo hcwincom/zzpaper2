@@ -356,7 +356,10 @@ class PaperController extends UserBaseController
         
         return $this->fetch();
     }
-    
+     /* 申请处理 */
+    public function send_affirm(){
+        return $this->fetch();
+    }
     /* 申请处理 */
     public function ajax_confirm(){
         $tmp=zz_check_time();

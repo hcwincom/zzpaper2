@@ -1,18 +1,25 @@
   <include file="public@head" />  
 </head>
-<body>
+<body class="back_tigray">
     <section class=''>
+        <div class="dainfo backg-tblue">
+            <p>
+                <eq name="paper.back" value="0">待还款详情
+                    <else/>待收款详情
+                </eq>
+            </p>
+        </div>
         <div class="hasBottomFixed">
             <form action="" id='loan_detail'>
                 <ul class='box form-box box-right main'>
-                    <li class="box-img">
+                    <!-- <li class="box-img">
                        
                          <img src="{:cmf_get_image_url($paper.avatar)}" alt="{$paper.name}" class="box-conImg">
-                    </li>
+                    </li> -->
                     <li class="box-li padding-all">
                         <div class='box-tit'>借款人姓名：</div>
                         <div class='box-con'>
-                         	<a href="{:url('user/paper/search_paper',['oid'=>$paper.oid])}" class="box-cona">负债查询</a>
+                         	<!-- <a href="{:url('user/paper/search_paper',['oid'=>$paper.oid])}" class="box-cona">负债查询</a> -->
                         	<input type="text" value='{$paper.borrower_name}' readonly>
                         </div>
                     </li>
@@ -34,7 +41,7 @@
                         <div class='box-con'><input type="text" name='date_borrowing'  id='date' value="{$paper.start_time|date='Y-m-d',###}"  readonly></div>
                     </li>
                     <li class="box-li padding-all">
-                        <div class='box-tit'>还款期限：</div>
+                        <div class='box-tit'>还款日期：</div>
                         <div class='box-con'><input type="text" name='repayment_date' id='date2'  value="{$paper.end_time|date='Y-m-d',###}" readonly></div>
                     </li>
                     <li class="box-li padding-all">
@@ -50,9 +57,15 @@
                         <div class='box-tit'>借条状态：</div>
                         <div class='box-con'><input type="text" name='identity_name' value='{$paper.status_name}' class='red' readonly></div>
                     </li>
+                    <li class="box-li Liabilities">
+                        <div>
+                            <a href="{:url('user/paper/search_paper',['oid'=>$paper.oid])}" class="box-cona">负债详情查询</a>
+                        </div>
+                    </li>
                     <li class="box-li padding-all">
                         <div class='box-tit '>相关申请<empty name="replys">-无</empty></div>
                     </li>
+   
            <foreach name="replys" item="vo">
             		<li class="box-li padding-all box-li-long  box-li-to-long">
                         <div class='box-tit gray'>
@@ -116,8 +129,24 @@
                     <p class='red'></p>
                     <!-- <p class='blue-text'>已成功</p> -->
                 </ul>
-          
-                <ul class="bottom-fixed">
+                <ul class="bottom-flexed">
+                    <li>
+                        <a href="javascript:void(0);" class='back-alert'>
+                            <eq name="paper.back" value="0">申请还款
+                                <else/>待收
+                            </eq>
+                        </a>
+                    </li>
+                    <li class="delay_single">
+                        <div>
+                            <span>延期</span>|<span>消单</span>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <!--  -->
+                <!-- <ul class="bottom-fixed">
                      
                     <li class=''>
                         <a href="javascript:void(0);" class='red delay-alert'>
@@ -131,13 +160,12 @@
                         </a>
                     </li>
                      
-                </ul>
+                </ul> -->
          
             </form>
         </div>
         
- 		<include file="public@psw"/>
-    
+         <include file="public@psw"/>
         <!--延期 -->
         <div class="pop_up pop_up3 border-radius-10 pop_up_inputs" style='display:none;'>
             <p class="error-tip red">提示</p>
@@ -149,7 +177,20 @@
             </ul>
         </div> 
     </section>
-
+      <!-- 点击延期和消单弹出 -->
+         <div id="drop_down" class="drop_down">
+           <div class="drop_down_menu">
+                <div class="drop_down_list">
+                    <ul>
+                        <li><a href="{:url('postpone')}">延期</a></li>
+                        <li><a href="{:url('single_elimination')}">消单</a></li>
+                    </ul>
+                </div>
+                <div class="drop_down_head">
+                    <input type="button" value="取消">
+                </div>
+           </div>
+         </div>
        <include file="public@foot" />  
         <script type="text/javascript" src="__TMPL__/public/assets/js/laydate/laydate.js"></script>
     <script>
@@ -305,6 +346,14 @@
                 $(this).removeClass('icon-mess8').addClass('icon-mess7')
             }
         
+        });
+
+        // 点击出现延期消单
+        $(".delay_single").click(function () {
+            $("#drop_down").fadeIn();
+        });
+        $(".drop_down_head").click(function () {
+             $("#drop_down").fadeOut();
         });
 
      </script>

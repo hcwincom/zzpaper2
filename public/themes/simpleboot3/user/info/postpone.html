@@ -1,0 +1,147 @@
+<include file="public@head" />
+<link rel="stylesheet" href="__TMPL__/public/assets/css/mobiscroll.custom.min.css">
+</head>
+<body class="">
+    <section>
+        <form action="" method="POST">
+            <div class="dainfo backg-tblue">
+                <p>
+                   延期申请
+                </p>
+            </div>
+            <ul class="box form-boxpadding box-right">
+                <li class="box-li padding-all">
+                    <div class='box-tit'>延期日期：</div>
+                    <div class='box-con'><input type="text" name='postpone_date' id='date1' readonly></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>延后到期日：</div>
+                    <div class='box-con'><input type="text" name='delay_date' id="delay_date" class='promit-input tet-right' readonly/></div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class='box-tit'>延期利率：</div>
+                    <div class='box-con'>
+                        <select name="" id="annual_rate">
+                            <foreach name="$Think.config.rate" item="vo">
+                                <option value="{$vo}">{$vo}%</option>
+                            </foreach>
+                        </select>
+                    </div>
+                </li>
+                <li class="box-li padding-all">
+                    <div class="protocol">
+                        <label for="" class='checkbox-label'>
+                            <input type='checkbox' id='checkbox-label'>
+                            <span class="icon icon-mess icon_mess9"></span>
+                        </label>
+                
+                        已同意<a href="{:url('user/public/protocol',['name'=>'borrower'])}">《借款协议》</a>
+                
+                    </div>
+                </li>
+            </ul>
+            <div class="backg-tblue affirm_btn">
+                <a href="javascript:void(0);" class='delay-btn '>确定延期</a>
+            </div>
+        </form>
+       
+    </section>
+
+<a href="{:url('postpone_sure')}">ddddd</a>
+
+<include file="public@foot" />
+<script type="text/javascript" src="__TMPL__/public/assets/js/laydate/laydate.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/mobiscroll.custom.min.js"></script>
+<script>
+    //获取当前时间，格式YYYY-MM-DD
+        function GetDateStr(AddDayCount) {
+            var dd = new Date();
+            dd.setDate(dd.getDate() + AddDayCount);//获取AddDayCount天后的日期
+
+            var y = dd.getFullYear();
+
+            var m = dd.getMonth() + 1;//获取当前月份的日期
+            var d = dd.getDate();
+
+            return y + "-" + m + "-" + d;
+
+        }       
+    // 利率选择
+    var theme = "ios";
+    var mode = "scroller";
+    var display = "bottom";
+    var lang = "zh";
+    $("#annual_rate").mobiscroll().select({
+        theme: theme,
+        mode: mode,
+        display: display,
+        lang: lang
+    });
+
+    // 日期插件
+    $(function () {
+        laydate.render({
+            elem: '#delay_date',
+            value: GetDateStr(0),
+            istoday: true,
+            min: 0
+        });
+     });
+
+    // 延期
+    var click = 0;
+   
+    $('.delay-btn').click(function () {
+        if (click == 0) {
+            click = 1;
+        } else {
+            return false;
+        }
+        $('.error-tip').text('正在提交，请勿重复操作!');
+
+        var day = $.trim($('input[name="delay_date"]').val());
+        // var psw = $.trim($('.pop_up3  input[name="password"]').val());
+
+        // if (!isPassword(psw)) {
+        //     $('.error-tip').text('请输入6位数字密码');
+        //     return false;
+        // }
+        $.ajax({
+            type: 'POST',
+            url: "{:url('user/info/ajax_reply')}",
+            dataType: 'json',
+            data: { 'oid': oid,'day': day, 'type': 'delay' },
+            success: function (data) {
+                if (data.code == 1) {
+                    click = 1;
+                } else {
+                    click = 0;
+                }
+                $('.error-tip').text(data.msg);
+                if (data.url != '') {
+                    setTimeout(function () {
+                        location.href = data.url;
+                    }, 2000);
+                }
+
+            },
+
+            error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
+
+                click = 0;
+                msg('服务器连接失败', event.responseText);
+
+            }
+        });
+        return false;
+    });
+
+    // 阅读选中
+    $('.checkbox-label').click(function () {
+        $('#checkbox-label').click();
+    });
+
+
+
+
+</script>
