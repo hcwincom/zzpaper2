@@ -305,9 +305,9 @@ img{transform:scale(1) translateZ(0)}
     font-size: 1.5rem;
 }
 .affirm_title p:nth-child(2){
-    height: 3.2rem;
-    line-height: 3.2rem;
-    font-size: 2.3rem;
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 3rem;
 }
 .affirm_main{
      width: 96%;

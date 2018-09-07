@@ -360,6 +360,19 @@ class PaperController extends UserBaseController
     public function send_affirm(){
         return $this->fetch();
     }
+    //  同意借条
+    public function confirm_sure(){
+         return $this->fetch();
+    }
+    // 驳回借条
+
+    public function confirm_cancal(){
+        return $this->fetch();
+    }
+
+
+
+
     /* 申请处理 */
     public function ajax_confirm(){
         $tmp=zz_check_time();
