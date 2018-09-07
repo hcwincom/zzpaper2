@@ -717,7 +717,7 @@
 }
 .cofirm_con li{
     text-align:center;
-    width:37.5%;
+    width:38.5%;
     float:left;
     margin-bottom: 0.5rem;
 }
@@ -731,10 +731,20 @@
     margin:5px 0;   
 } */
 .cofirm_con li img{
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
     margin-top: 0.3rem;
+}
+.cofirm_conli{
+    line-height: 4.5rem;
+}
+.cofirm_conli span{
+    width:-webkit-calc(100% - 3.5rem);
+    width:-moz-calc(100% - 3.5rem);
+    width:-ms-calc(100% - 3.5rem);
+    width:-o-calc(100% - 3.5rem);
+    width: calc(100% - 3.5rem);
 }
 .content_div{
     overflow-y:auto;
@@ -763,7 +773,7 @@
 } */
 .icon-daihuai{
     position: absolute;
-    right: 13px;
+    right: 10px;
     bottom: 5px;
     background-position: -36px -174px;
     width: 50px;

@@ -16,8 +16,6 @@
 
         </div>
     </div>
-
-
     <div class="backg-whiteb daihuai">
         <ul class="group-person-second group-white">
             <li class="backg-tblue">
@@ -34,9 +32,6 @@
             </li>
         </ul>
     </div>
-
-
-
      <!-- 个人中心 --> 
       <div class="content">
             <ul class="content_nav">
@@ -50,9 +45,9 @@
                     <li class='confirm_item'>
                         <a href="{:url('user/paper/confirm',['id'=>$vo.id])}">
                             <ol class="cofirm_con">
-                                <li>
-                                    <p class="cofirm_conname">{$vo.name}</p>
+                                <li class="cofirm_conli">
                                     <img src="{:cmf_get_image_url($vo.avatar)}" alt="头像">
+                                    <span class="cofirm_conname">{$vo.name}</span>   
                                 </li>
                                 <li>
                                     <p class='big'>
