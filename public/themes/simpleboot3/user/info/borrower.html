@@ -46,19 +46,17 @@
                                             <em>{$vo.lender_name}</em>
                                         </dd>
                                         <dd class='paper_money'><span>¥{$vo.money}</span></dd>
-                                        <dd class="paper_date">
-                                            <span class="greenColor">延期</span>
-                                            <span>{$vo.end_time|date='Y-m-d',###}</span>
-                                        </dd>
-                                 <!-- <dd class='paper_color{$vo.status}'>
+                                         <dd class='paper_color{$vo.status}' style="position:relative;">
                                              <switch name="vo.status">
                                             <case value="3"><span>今日到期</span></case>
                                 			<case value="4"><span>还剩{$vo.expire_day}天</span></case>
                                 			<case value="5"><span>逾期{$vo.overdue_day}天</span></case>
                                 			<default>未生效</default>
-                                			</switch>
-                                        </dd> -->
+                                            </switch>
+                                            <div class="greenColor paper_date">延期</div>
+                                        </dd>
                                     </dl>
+                                    <div class="clearfix"></div>
                                 </div>
                                 <!-- <ol class="ul_2nd">
                                         <li>
@@ -81,18 +79,16 @@
                                             <em>{$vo.lender_name}</em>
                                         </dd>
                                         <dd class='paper_money'><span>¥{$vo.money}</span></dd>
-                                        <dd class="paper_date">
-                                            <span class="greenColor">延期</span>
-                                            <span>{$vo.end_time|date='Y-m-d',###}</span>
-                                        </dd>
-                                    <!-- <dd class='paper_color6'> 
-                                                <div>
-                                                    已还款|
-                                                    <eq name="vo.overdue_day" value="0">未逾期
-                                                    <else/>逾期{$vo.overdue_day}天</eq>
-                                                </div>	
-                                            </dd>  -->
+                                        <dd class='paper_color6' style="position:relative;"> 
+                                            <div>
+                                                已还
+                                                <eq name="vo.overdue_day" value="0">
+                                                <else/>|逾期{$vo.overdue_day}天</eq>
+                                            </div>	
+                                            <strong class="greenColor paper_date">延期</strong>
+                                        </dd> 
                                     </dl>
+                                    <div class="clearfix"></div>
                                 </div>
                                 <!-- <ol class="ul_2nd">
                                     <li><img src="{:cmf_get_image_url($vo.avatar)}" alt="头像"></li>

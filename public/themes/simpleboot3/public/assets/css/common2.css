@@ -9,7 +9,9 @@ body,h1,h2,h3,h4,h5,h6,p,dl,dd,dt,ul,ol,a,div,input,li,img{
     text-decoration:none;
     color: #333;
 }
+a:hover{text-decoration:none}
 a:focus{text-decoration: none}
+
 html,body{font-family:Microsoft YaHei,Segoe UI Light,Segoe UI,"微软雅黑",Tahoma,Arial,Verdana,sans-serif;background-color:#fff;color:#4d4d4d;width:100%;}
 
 textarea,input,button,select,img{border:none;outline:none;}
@@ -207,33 +209,36 @@ img{transform:scale(1) translateZ(0)}
     display: inline-block;
     width: 88%;
     line-height: 1.5rem;
-    border: 0.05rem solid green;
+    /* border: 0.05rem solid green; */
     border-radius: 0.5rem;
 }
 .paper_color6 div{
     /* border: 0.05rem solid green; */
-    width: 88%;
+    width: 85%;
     line-height: 1.5rem;
     color: green;
-    /* border-radius: 0.5rem; */
+    float: right;
+    text-align: center;
 }
 .paper_color5{
 	color:red !important;
 }
 .paper_color5 span{
-    display: inline-block;
+    display:block;
     width: 88%;
     line-height: 1.5rem;
-    border: 0.05rem solid red;
+    /* border: 0.05rem solid red; */
     border-radius: 0.5rem;
+    float: right;
 }
 .paper_color4{
 	color:gray !important;
 }
 .paper_color4 span{
-    display: inline-block;
+    display:block;
     width: 88%;
     line-height: 1.5rem;
+     float: right;
     /* border: 0.05rem solid #ddd; */
     /* border-radius: 0.5rem; */
 }
@@ -243,13 +248,19 @@ img{transform:scale(1) translateZ(0)}
 }
 
 .paper_color3 span{
-    border: 1px solid #FFD700;
-    display: inline-block;
+    /* border: 1px solid #FFD700; */
+    display: block;
     width: 88%;
     line-height: 1.5rem;
     border-radius: 0.5rem;
+     float: right;
 }
-
+.paper_date{
+    position: absolute;
+    top: -.2rem;
+    left: -.2rem;
+    display: inline;
+}
 
 /* 6已还，5逾期，4待还，3今日到期 */
 .bigColorback{
