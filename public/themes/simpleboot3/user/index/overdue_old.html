@@ -20,9 +20,9 @@
                    <li class='confirm_items'>
                          <ol class="cofirm_con_third clearfix">
                             <li>{$vo.borrower_name}</li>
-                            <li></li>
-                            <li>{$vo.overdue_day}</li>
                             <li>{$vo.money}</li>
+                            <li>{$vo.overdue_day}</li>
+                            <li>限制借条</li>
                         </ol>
                     </li> 
                  </foreach>
@@ -31,6 +31,22 @@
             </div>
         </div>    
     </div>
+    <!-- <div id="prompts_div">
+        <div id="prompts">
+            <div class="prompt_title">
+                <p>提示</p>
+            </div>
+            <div>
+                <p>1.</p>
+                <p>2.</p>
+                <p>3.</p>
+            </div>
+            <div class="prompt_cancal">
+                我知道了
+            </div>
+        </div>
+    </div> -->
+   
       <include file="public@user_foot" />  
         <script>
         dropSroll("{:url('user/index/ajax_overdue_old')}","{$Think.config.mobile_page}");

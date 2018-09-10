@@ -131,6 +131,7 @@
                 </ul>
                 <ul class="bottom-flexed">
                     <li>
+                        <a href="{:url('reimbursemen')}">申请还款链接的支付页面</a>
                         <a href="javascript:void(0);" class='back-alert'>
                             <eq name="paper.back" value="0">申请还款
                                 <else/>已还款
@@ -350,7 +351,7 @@
         
         });
 
-        // 点击出现延期消单
+        // 点击出现延期和消单
         $(".delay_single").click(function () {
             $("#drop_down").fadeIn();
         });

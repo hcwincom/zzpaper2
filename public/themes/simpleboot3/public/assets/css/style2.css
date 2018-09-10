@@ -390,7 +390,12 @@
     padding-top:.5rem;
     padding-bottom:.5rem;
 }
-
+.nav-fixed dl{
+    border-right: 0.01rem solid #dddddd;
+}
+.nav-fixed dl:nth-child(3){
+    border-right: none;
+}
 .nav-fixed dl,.bottom-fixed li{
     text-align:center;
     position:relative;
@@ -406,7 +411,7 @@
 
 .show_posi{  
     position:absolute;
-    top:-6.5rem;
+    top:-8.3rem;
     left:-2.5rem;
     right: -2rem;
     background-color:#fff;
@@ -709,6 +714,7 @@
 }
 .cofirm_con{
     width:100%;
+    position: relative;
 }
 .cofirm_con:after{
     content:"";
@@ -731,20 +737,21 @@
     margin:5px 0;   
 } */
 .cofirm_con li img{
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     margin-top: 0.3rem;
 }
 .cofirm_conli{
-    line-height: 4.5rem;
+    line-height: 5rem;
+    text-align: left;
 }
 .cofirm_conli span{
-    width:-webkit-calc(100% - 3.5rem);
-    width:-moz-calc(100% - 3.5rem);
-    width:-ms-calc(100% - 3.5rem);
-    width:-o-calc(100% - 3.5rem);
-    width: calc(100% - 3.5rem);
+    width:-webkit-calc(100% - 4rem);
+    width:-moz-calc(100% - 4rem);
+    width:-ms-calc(100% - 4rem);
+    width:-o-calc(100% - 4rem);
+    width: calc(100% - 4rem);
 }
 .content_div{
     overflow-y:auto;
@@ -774,7 +781,7 @@
 .icon-daihuai{
     position: absolute;
     right: 10px;
-    bottom: 5px;
+    bottom: 3px;
     background-position: -36px -174px;
     width: 50px;
     height: 50px;
@@ -808,6 +815,37 @@
 .hasNav{
     background-color:#E5E5E5;
 }
+/* #prompts_div{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0,0, 0.4)
+}
+#prompts{
+    position: fixed;
+    top: 19rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 70%;
+    background-color: #fff;
+    /* display:none; 
+    z-index: 20;
+}
+#prompts div{
+    padding-bottom: 0.5rem;
+    padding: 0 0.5rem;
+}
+#prompts div:last-child{
+    border-top: 0.01rem solid #e5e5e5;
+}
+#prompts div p{
+    font-size: 1.2rem;
+    line-height: 2rem;
+} */
+
 
 /* 个人信用 */
 .loan{

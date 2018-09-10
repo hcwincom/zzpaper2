@@ -202,7 +202,11 @@ class InfoController extends UserBaseController
         
         return $this->fetch();
     }
-
+    // 申请还款
+    public function reimbursemen()
+    {
+       return $this->fetch();
+    }
 
 
     
