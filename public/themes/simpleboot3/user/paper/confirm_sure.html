@@ -4,16 +4,10 @@
 <body class="backg-whiteb">
     <section>
         <form action="" method="POST">
-            <input type="hidden" name="borrowing_name" value="">
-            <input type="hidden" name="borrow_date" value="">
-            <input type="hidden" name="repayment_date" value="">
-            <input type="hidden" name="annual_rate_dummy" id="annual_rate_dummy" value="">
-            <input type="hidden" name="send_type" value="">
-            <input type="hidden" name="usage_loan" value="">
             <div class="affirm_title backg-tblue">
                 <p>借款金额</p>
                 <p class="affirm_money">
-                    ￥10.00元
+                    ￥{$money}元
                 </p>
             </div>
             <div class="affirm_main">
@@ -24,19 +18,57 @@
                     <div>
                         <p>温馨提示：</p>
                     </div>
-                    <p class="affirm_content">请确认保线下达成借贷合意后，第一时间将出借信息发送给借款人确认，确认后等待借款人通知</p>
+                    <p class="affirm_content">请确认保你们已经线下达成借贷合意或已交易完毕，输入密码后借款人将会收到操作通知！</p>
                 </div>
 
-
-
+                <p class="error-tip red"></p>
                 <div class="backg-tblue affirm_btn">
-                    <a href="javascript:void(0);" class='blue-text sure-btn-2'>确认支付</a>
+                    <a href="javascript:void(0);" class='blue-text sure-btn-2'>
+                        <eq name="op" value="1">
+                            确认支付
+                            <else/> 确认驳回
+                        </eq>
+                    </a>
                 </div>
             </div>
 
         </form>
 
-
     </section>
 
     <include file="public@foot" />
+    <script>
+        var id = "{$id}";
+        var op = "{$op}";
+        console.log(op);
+        var money = "{$money}";
+         $(".sure-btn-2").click(function () {
+                var psw = $.trim($('.promit-input').val());
+
+                if (psw == '' || isPassword(psw) == false) {
+                    $('.promit-input').focus();
+                    $('.error-tip').text('请输入6位数字密码');
+                    return false;
+                }
+                $('.promit-input').val('');
+
+                //ajax提交
+                $.ajax({
+                    type: 'POST',
+                    url: "{:url('user/paper/ajax_confirm')}",
+                    dataType: 'json',
+                    data: { 'id': id, 'psw': psw, 'op': op,'money': money },
+                    success: function (data) {
+                        
+                        if (data.url != 1) {
+                            $('.error-tip').text(data.msg);
+                        }
+                    },
+                    error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
+                     
+                        msg('服务器连接失败', event.responseText);
+                    }
+                });
+                return false;
+            });
+    </script>

@@ -9,7 +9,11 @@
             </p>
         </div>
         <div class="guninfoTop backg-tblue">
-            <p>我是借款人   我是出借人</p>
+            <p>
+                <eq name="send_type" value="0">我是借款人
+                    <else/> 我是出借人
+                </eq>    
+            </p>
         </div>
         <form action="">
             <ul class='box form-boxpadding box-right'>
@@ -67,7 +71,7 @@
                    </div>
                 </li>
                 <p class='tip box-p'>风险提示</p>
-                <p class=' red' style="font-size:1.2rem;">此平台只提供凭证，生成借条时请仔细核对信息再确认。</p>
+                <p class='orange' style="font-size:1.2rem;">此平台只提供凭证，生成借条时请仔细核对信息再确认。</p>
               
                  <p>&nbsp;&nbsp;<span class="error-tip red">{$error}</span></p>
             </ul>
@@ -77,10 +81,9 @@
                 <button type="button" class="btnsub"/>下一步</button>
             </div>
         </form>
-      <a href="{:url('send_affirm')}">ddddddd</a>
          <!-- 确认操作 -->
         
-        <include file="public@psw" />   
+
     </section>
    
 
@@ -113,6 +116,9 @@
  // 日期
  	var click=0;
  		//获取当前时间，格式YYYY-MM-DD
+          var NowDate = GetDateStr(0);
+            $("#date1").val(NowDate);
+
         function GetDateStr(AddDayCount){ 
             var dd = new Date();
             dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
@@ -173,9 +179,9 @@
                   return false;
               }
 
-              $('.pop_up .promit-html').text('你确定要发起借条吗？');
-              $('.error-tip').text('');
-              $('.pop_up').show();
+            //   $('.pop_up .promit-html').text('你确定要发起借条吗？');
+            //   $('.error-tip').text('');
+            //   $('.pop_up').show();
               return false;
             });
         
@@ -186,36 +192,49 @@
              var name = $.trim($('input[name="name"]').val());
              var send_type = $.trim($('input[name="send_type"]').val());
              var rate = parseInt($('#annual_rate_dummy').val().split('%')[0]);
-
              var use = $.trim($('input[name="usage_loan"]').val());
              var end = $.trim($('input[name="repayment_date"]').val());
+            if (money == '' || isMoney(money) == false) {
+                 $('.error-tip').text('提示：请输入正确金额');
+                 $('input[name="borrowing_balance"]').focus();
+                 return false;
+             }else if (name == '') {
+                 $('.error-tip').text('提示：请输入对方姓名');
+                 $('input[name="name"]').focus();
+                 return false;
+             }else if(use == ""){
+                  $('.error-tip').text('提示：请选择借款用途');
+                  return false;
+             }else if ($('input[type="checkbox"]').prop('checked') == false) {
+                 $('.error-tip').text('提示：请确认已阅读用户协议');
+                 return false;
+             }
+
+             location.href = "{:url('send_affirm','',false,false)}/money/"+ money+'/name/'+ name+'/send_type/'+ send_type+'/rate/'+ rate+'/use/'+ use+'/end/'+ end;
+
+
              //ajax提交
-             $.ajax({
-                 type: 'POST',
-                 url: "",
-                 dataType: 'json',
-                 data: {'money': money, 'name': name, 'send_type': send_type, 'rate': rate, 'use': use, 'end': end },
-                 success: function (data) {
-                     $('.error-tip').text(data.msg);
-                     if (data.url != '') {
-                         location.href = data.url;
-                     }
-                 },
-                 error: function (xhr, type) {
-                     $('.error-tip').text('服务器连接失败');
-                 }
-             });
-             return false;
+            //  $.ajax({
+            //      type: 'POST',
+            //      url: "",
+            //      dataType: 'json',
+            //      data: {'money': money, 'name': name, 'send_type': send_type, 'rate': rate, 'use': use, 'end': end },
+            //      success: function (data) {
+            //          $('.error-tip').text(data.msg);
+            //          if (data.url != '') {
+            //              location.href = data.url;
+            //          }
+            //      },
+            //      error: function (xhr, type) {
+            //          $('.error-tip').text('服务器连接失败');
+            //      }
+            //  });
+            //  return false;
              
          });
 
 
-
-
-
-
-
-
+        
 
       </script>
   

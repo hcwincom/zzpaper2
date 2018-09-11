@@ -3,7 +3,23 @@
 <body>
      <!-- 个人中心 -->
      <div class="hasFixedTop">
-        <include file="public@person_head" />
+        <div class="person_head  backg-blue">
+            <div class="home-btn">
+                <a href="{:url('user/info/index')}"><span class='glyphicon glyphicon-cog'></span>设置</a>
+            </div>
+            <div class="person_herd_mess">
+                <a href="{:url('user/index/index')}">
+                    <img src="{:cmf_get_image_url($user.avatar)}" alt="头像">
+                </a>
+                <div>
+                    <span>{$user.user_nickname}</span>
+                    <span>待还总额¥{$user.back}元</span>
+                </div>
+        
+            </div>
+        
+        </div>
+
         <div class="person_con ">
             <div class="backg-whiteb daihuai">
                 <ul class="group-person-second group-white">
@@ -53,7 +69,7 @@
                                 			<case value="5"><span>逾期{$vo.overdue_day}天</span></case>
                                 			<default>未生效</default>
                                             </switch>
-                                            <div class="greenColor paper_date">延期</div>
+                                            <!-- <div class="greenColor paper_date">延期</div> -->
                                         </dd>
                                     </dl>
                                     <div class="clearfix"></div>
@@ -85,7 +101,7 @@
                                                 <eq name="vo.overdue_day" value="0">
                                                 <else/>|逾期{$vo.overdue_day}天</eq>
                                             </div>	
-                                            <strong class="greenColor paper_date">延期</strong>
+                                            <!-- <strong class="greenColor paper_date">延期</strong> -->
                                         </dd> 
                                     </dl>
                                     <div class="clearfix"></div>

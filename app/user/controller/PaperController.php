@@ -147,6 +147,9 @@ class PaperController extends UserBaseController
         if(empty($user0['is_name'])){
             $this->error('没有实名认证，不能补借条');
         }
+        if(empty($user0['is_paper'])){
+            $this->error('有借条逾期超过3天，暂时不能补借条');
+        }
         $data0=$this->request->param();
         
         $time=time();
@@ -358,20 +361,17 @@ class PaperController extends UserBaseController
     }
      /* 申请处理 */
     public function send_affirm(){
+        $data=$this->request->param();
+        $this->assign($data);
         return $this->fetch();
     }
     //  同意借条
     public function confirm_sure(){
-         return $this->fetch();
-    }
-    // 驳回借条
-
-    public function confirm_cancal(){
+        $data=$this->request->param();
+        $this->assign($data);
         return $this->fetch();
     }
-
-
-
+   
 
     /* 申请处理 */
     public function ajax_confirm(){
@@ -525,6 +525,19 @@ class PaperController extends UserBaseController
                     $rates=bcsub($info_paper['final_money'],$info_paper['money'],2);
                     $data_user2['money']=bcadd($user2['money'],$rates,2);
                     $data_user1['money']=bcsub($user1['money'],$rates,2);
+                    //判断user1是否有逾期3天
+                    if($info_paper['overdue_day']>2){
+                        $where_tmp=[
+                            'borrower_id'>['eq',$info_paper['borrower_id']],
+                            'overdue_day'=>['gt',2],
+                        ];
+                        $tmp_paper=$m_paper->where($where_tmp)->find();
+                        //如果没有逾期超过3天的要回复借条权限
+                        if(empty($tmp_paper)){
+                            $data_user1['is_paper']=1;
+                        }
+                    }
+
                     $m_user->where('id',$user1['id'])->update($data_user1);
                     $m_user->where('id',$user2['id'])->update($data_user2);
                 }elseif($info_reply['type']=='send'){

@@ -189,27 +189,25 @@ class InfoController extends UserBaseController
     }
     // 延期
     public function postpone(){
+        $data=$this->request->param();
+        $this->assign($data);
         return $this->fetch();
     }
 
     // 延期确认
     public function postpone_sure(){
-        return $this->fetch();
-    }
-
-    // 消单
-    public function single_elimination(){
-        
+       $data=$this->request->param();
+        $this->assign($data);
         return $this->fetch();
     }
     // 申请还款
     public function reimbursemen()
     {
+          $data=$this->request->param();
+        $this->assign($data);
        return $this->fetch();
     }
 
-
-    
     /* 提交申请 */
     public function ajax_reply(){
         
@@ -285,6 +283,20 @@ class InfoController extends UserBaseController
                 $rates=bcsub($info_paper['final_money'],$info_paper['money'],2);
                 $data_user2['money']=bcadd($user2['money'],$rates,2);
                 $data_user1['money']=bcsub($user1['money'],$rates,2);
+
+                 //判断user1是否有逾期3天
+                if($info_paper['overdue_day']>2){
+                    $where_tmp=[
+                        'borrower_id'>['eq',$info_paper['borrower_id']],
+                        'overdue_day'=>['gt',2],
+                    ];
+                    $tmp_paper=$m_paper->where($where_tmp)->find();
+                    //如果没有逾期超过3天的要回复借条权限
+                    if(empty($tmp_paper)){
+                        $data_user1['is_paper']=1;
+                    }
+                }
+
                 $m_user->where('id',$user1['id'])->update($data_user1);
                 $m_user->where('id',$user2['id'])->update($data_user2);
                

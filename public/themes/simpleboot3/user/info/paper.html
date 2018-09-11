@@ -53,10 +53,10 @@
                         <div class='box-tit'>借款用途：</div>
                         <div class='box-con'><span class='drop_down_btn'>{$paper.use}</span> </div>
                     </li>
-                    <li class="box-li padding-all box-li-long">
+                    <!-- <li class="box-li padding-all box-li-long">
                         <div class='box-tit'>借条状态：</div>
                         <div class='box-con'><input type="text" name='identity_name' value='{$paper.status_name}' class='red' readonly></div>
-                    </li>
+                    </li> -->
                     <li class="box-li Liabilities">
                         <div>
                             <a href="{:url('user/paper/search_paper',['oid'=>$paper.oid])}" class="box-cona">负债详情查询</a>
@@ -66,7 +66,7 @@
                         <div class='box-tit '>相关申请<empty name="replys">-无</empty></div>
                     </li>
    
-           <foreach name="replys" item="vo">
+                <foreach name="replys" item="vo">
             		<li class="box-li padding-all box-li-long  box-li-to-long">
                         <div class='box-tit gray'>
                         	{$reply_types[$vo.type]}
@@ -77,7 +77,6 @@
                         		<a href="{:url('user/paper/confirm',['id'=>$vo.id])}">|去确认</a>
                         	</if>
                         	 
-                        	）
                         </div>
                         <div class='box-con'><span class='icon icon-mess icon-mess7 btn-show-siblings'></span></div>
                     </li>
@@ -122,31 +121,27 @@
                		</case>
                </switch>
                
-           </foreach>
-                    
-                    
+           </foreach>   
                     <!-- 错误提示 -->
                     <p class='red'></p>
                     <!-- <p class='blue-text'>已成功</p> -->
                 </ul>
                 <ul class="bottom-flexed">
                     <li>
-                        <a href="{:url('reimbursemen')}">申请还款链接的支付页面</a>
                         <a href="javascript:void(0);" class='back-alert'>
-                            <eq name="paper.back" value="0">申请还款
+                             {$paper.status_name}
+                            <!-- <eq name="paper.back" value="0">申请还款
                                 <else/>已还款
-                            </eq>
+                            </eq> -->
                         </a>
-                        <a href="javascript:void(0)">待收</a>
-                        
+                        <!-- <a href="javascript:void(0)">待收</a>      -->
                     </li>
                     <li class="delay_single">
                         <div>
-                            <span>延期</span>|<span>消单</span>
+                            <span>延期</span>|<span>还款</span>
                         </div>
                     </li>
                 </ul>
-
 
                 <!--  -->
                 <!-- <ul class="bottom-fixed">
@@ -168,9 +163,9 @@
             </form>
         </div>
         
-         <include file="public@psw"/>
+         <!-- <include file="public@psw"/> -->
         <!--延期 -->
-        <div class="pop_up pop_up3 border-radius-10 pop_up_inputs" style='display:none;'>
+        <!-- <div class="pop_up pop_up3 border-radius-10 pop_up_inputs" style='display:none;'>
             <p class="error-tip red">提示</p>
             <p class='promit-p'><span>延期还款日</span><input type="text" name='delay_date' id="delay_date" class='promit-input tet-right' readonly/></p>
              <p class='promit-p'><span>密码</span><input type="password" name='password' value='' placeholder='请输入6位数密码' class='tet-right promit-input'></p>
@@ -178,15 +173,23 @@
                 <li><a href="javascript:psw_hide();" class='blue-text'>取消</a></li>
                 <li><a href="javascript:void(0);" class='blue-text delay-btn '>确定</a></li>
             </ul>
-        </div> 
+        </div>  -->
     </section>
       <!-- 点击延期和消单弹出 -->
          <div id="drop_down" class="drop_down">
            <div class="drop_down_menu">
                 <div class="drop_down_list">
                     <ul>
-                        <li><a href="{:url('postpone')}">延期</a></li>
-                        <li><a href="{:url('single_elimination')}">消单</a></li>
+                        <li><a href="{:url('postpone',['oid'=>$paper.oid,'end_time'=>$paper.end_time])}">申请延期</a></li>
+                        <li>
+                            <a href="{:url('reimbursemen',['oid'=>$paper.oid])}">
+                                <eq name="paper.back" value="0">
+                                    申请还款
+                                <else/>
+                                    确认已还款
+                                </eq>
+                            </a>   
+                        </li>
                     </ul>
                 </div>
                 <div class="drop_down_head">
@@ -225,26 +228,27 @@
 	    }       
 	    var click=0;
     	var oid="{$paper.oid}";
-    	var back="{$paper.back}";
+        var back="{$paper.back}";
+        console.log(back);
     	var final_money="{$paper.final_money}"; 
-         $('.back-alert').click(function(){
-        	 $('.error-tip').text('提示'); 
-        	 if(back=='0'){
-        		 $('.pop_up1 .promit-html').text('你确定要申请还款吗？应还'+final_money+'元');
-        	 }else{
-        		 $('.pop_up1 .promit-html').text('你确定对方已还款吗？对方应还'+final_money+'元');
-        	 }
-        	 click=0;
-            $('.pop_up').hide();
-            $('.pop_up1').show();
-        });
+        //  $('.back-alert').click(function(){
+        // 	 $('.error-tip').text('提示'); 
+        // 	 if(back=='0'){
+        // 		 $('.pop_up1 .promit-html').text('你确定要申请还款吗？应还'+final_money+'元');
+        // 	 }else{
+        // 		 $('.pop_up1 .promit-html').text('你确定对方已还款吗？对方应还'+final_money+'元');
+        // 	 }
+        // 	 click=0;
+        //     $('.pop_up').hide();
+        //     $('.pop_up1').show();
+        // });
  
-        $('.delay-alert').click(function(){
-        	click=0;
-        	$('.error-tip').text('提示');
-            $('.pop_up').hide();
-            $('.pop_up3').show();
-        });
+        // $('.delay-alert').click(function(){
+        // 	click=0;
+        // 	$('.error-tip').text('提示');
+        //     $('.pop_up').hide();
+        //     $('.pop_up3').show();
+        // });
 
         // 输入密码，确定
         $('.sure-btn-2').click(function(){

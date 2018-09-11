@@ -3,16 +3,11 @@
 <body class="backg-whiteb">
     <section>
         <form action="" method="POST">
-            <input type="hidden" name="borrowing_name" value="">
-            <input type="hidden" name="borrow_date" value="">
-            <input type="hidden" name="repayment_date" value="">
-            <input type="hidden" name="annual_rate_dummy" id="annual_rate_dummy" value="">
-            <input type="hidden" name="send_type" value="">
-            <input type="hidden" name="usage_loan" value="">
+           
             <div class="affirm_title backg-tblue">
                 <p>借款金额</p>
                 <p class="affirm_money">
-                    ￥10.00元 ￥50.00元
+                    ￥{$money}元
                 </p>
             </div>
             <div class="affirm_main">
@@ -27,7 +22,7 @@
                 </div>
                
                 
-                
+                <p class="error-tip red"></p>
                 <div class="backg-tblue affirm_btn">
                     <a href="javascript:void(0);" class='blue-text sure-btn-2'>确认支付</a>
                 </div>
@@ -35,41 +30,36 @@
             
         </form>
       
-
     </section>
 
     <include file="public@foot" />
     <script>
+        var money = "{$money}";
+        var send_type = "{$send_type}";
+        var name = "{$name}";
+        var rate = "{$rate}";
+        var use = "{$use}";
+        var end = "{end}";
          $('.sure-btn-2').click(function () {
-
-                var money = $.trim($('input[name="borrowing_name"]').val());
-                var name = $.trim($('input[name="name"]').val());
-                var send_type = $.trim($('input[name="send_type"]').val());
-                var rate = parseInt($('#annual_rate_dummy').val().split('%')[0]);
-
-                var use = $.trim($('input[name="usage_loan"]').val());
-                var end = $.trim($('input[name="repayment_date"]').val());
                 var psw = $.trim($('.promit-input').val());
 
                 if (psw == '' || isPassword(psw) == false) {
                     $('.promit-input').focus();
-                    $('.pop_up .error-tip').text('请输入6位数字密码');
+                    $('.error-tip').text('请输入6位数字密码');
                     return false;
                 }
-
-                psw_hide();
 
                 //ajax提交
                 $.ajax({
                     type: 'POST',
                     url: "{:url('user/paper/ajax_send')}",
                     dataType: 'json',
-                    data: { 'psw': psw, 'money': money, 'name': name, 'send_type': send_type, 'rate': rate, 'use': use, 'end': end },
-                    success: function (data) {
-                        $('.error-tip').text(data.msg);
-                        if (data.url != '') {
-                            location.href = data.url;
-                        }
+                    data: { 'psw': psw,'money':money,"send_type": send_type,'name':name,'rate':rate,'use':ues,'end':end},
+                    success: function (data) { 
+                        if (data.url != 1) {
+                             $('.error-tip').text(data.msg);
+                            // location.href = data.url;
+                        }   
                     },
                     error: function (xhr, type) {
                         $('.error-tip').text('服务器连接失败');

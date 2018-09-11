@@ -46,10 +46,10 @@
                         <div class='box-tit'>借款用途：</div>
                         <div class='box-con'><span class='drop_down_btn'>{$paper.use}</span> </div>
                     </li>
-                    <li class="box-li padding-all box-li-long">
+                    <!-- <li class="box-li padding-all box-li-long">
                         <div class='box-tit'>借条状态：</div>
                         <div class='box-con'><input type="text" name='identity_name' value='{$paper.status_name}' class='red' readonly></div>
-                    </li>
+                    </li> -->
                     <li class="box-li padding-all">
                         <div class='box-tit '>相关申请<empty name="replys">-无</empty></div>
                     </li>
@@ -105,6 +105,12 @@
                     <!-- 错误提示 -->
                     <p class='red'></p>
                     <!-- <p class='blue-text'>已成功</p> -->
+                </ul>
+
+                <ul class="bottom-flexed">
+                    <li style="width:100%;">
+                       <a href="javascript:void(0);">已还款</a>
+                    </li>
                 </ul>
            
             </form>

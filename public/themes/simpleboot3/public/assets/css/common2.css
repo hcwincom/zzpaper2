@@ -67,6 +67,9 @@ img{transform:scale(1) translateZ(0)}
 .red{
     color:#d00000 !important;
 }
+.orange{
+    color: orange;
+}
 .blue-text{
     color:#1db4eb;
 }
