@@ -1,6 +1,6 @@
   function dropSroll(url,pageSize){
     var page=0;
-    var user_paper=['限制补借条','正常服务'];
+    var user_paper=['限制借条','正常服务'];
    
     var dropload=$('.content_div').dropload({
         

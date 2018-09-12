@@ -38,13 +38,13 @@ class PaperController extends UserBaseController
             return $this->fetch();
         }
         $this->assign('idcard',$idcard); 
-        $codes=$this->request->param('sms','','trim');
-        $msg=new Msg(); 
-        $res=$msg->verify($user['mobile'],$codes);
-        if($res!='success'){
-            $this->assign('error',$res);
-            return $this->fetch();
-        }
+        // $codes=$this->request->param('sms','','trim');
+        // $msg=new Msg(); 
+        // $res=$msg->verify($user['mobile'],$codes);
+        // if($res!='success'){
+        //     $this->assign('error',$res);
+        //     return $this->fetch();
+        // }
         
         $info=Db::name('user')->where(['user_login'=>$idcard,'user_type'=>2])->find();
         if(empty($info)){
