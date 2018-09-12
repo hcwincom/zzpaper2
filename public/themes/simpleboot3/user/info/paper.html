@@ -143,7 +143,6 @@
                     </li>
                 </ul>
 
-                <!--  -->
                 <!-- <ul class="bottom-fixed">
                      
                     <li class=''>
@@ -163,7 +162,6 @@
             </form>
         </div>
         
-         <!-- <include file="public@psw"/> -->
         <!--延期 -->
         <!-- <div class="pop_up pop_up3 border-radius-10 pop_up_inputs" style='display:none;'>
             <p class="error-tip red">提示</p>
@@ -182,11 +180,11 @@
                     <ul>
                         <li><a href="{:url('postpone',['oid'=>$paper.oid,'end_time'=>$paper.end_time])}">申请延期</a></li>
                         <li>
-                            <a href="{:url('reimbursemen',['oid'=>$paper.oid])}">
+                            <a href="{:url('reimbursemen',['oid'=>$paper.oid,'back'=>$paper.back,'final_money'=>$paper.final_money])}">
                                 <eq name="paper.back" value="0">
                                     申请还款
                                 <else/>
-                                    确认已还款
+                                    消单
                                 </eq>
                             </a>   
                         </li>
@@ -251,96 +249,96 @@
         // });
 
         // 输入密码，确定
-        $('.sure-btn-2').click(function(){
+        // $('.sure-btn-2').click(function(){
         	 
-        	if(click==0){
-       		 	click=1;
-	       	 }else{
-	       		 return false;
-	       	 }
-            $('.error-tip').text('正在提交，请勿重复操作!');
+        // 	if(click==0){
+       	// 	 	click=1;
+	    //    	 }else{
+	    //    		 return false;
+	    //    	 }
+        //     $('.error-tip').text('正在提交，请勿重复操作!');
            
-            var psw=$.trim($('.pop_up1 .promit-input').val());
+        //     var psw=$.trim($('.pop_up1 .promit-input').val());
            
-    		 if(!isPassword(psw)){
-    			 $('.error-tip').text('请输入6位数字密码');
-    			 return false;
-    		 }
-    		 $.ajax({
-                 type: 'POST',
-                 url: "{:url('user/info/ajax_reply')}",
-                 dataType: 'json',
-                 data:{'oid':oid,'psw':psw,'final_money':final_money,'type':'back'},
-                 success: function(data){ 
-                 	$('.error-tip').text(data.msg);
-                 	if(data.code==1){
-                 		click=1;
-                 	}else{
-                 		click=0;
-                 	}
-                 	if(data.url!=''){
-                 		if(back=='1' && data.code==1){
-                 			location.href=data.url; 
-	                   	 }else{
-	                   		setTimeout(function(){
-	                 			location.href=data.url;
-	                         },2000);
-	                   	 } 
-                 	} 
-                 },
-                 error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
-                  	 msg('服务器连接失败',event.responseText); 
-                 }
-             });
-    		 return false;
+    	// 	 if(!isPassword(psw)){
+    	// 		 $('.error-tip').text('请输入6位数字密码');
+    	// 		 return false;
+    	// 	 }
+    	// 	 $.ajax({
+        //          type: 'POST',
+        //          url: "{:url('user/info/ajax_reply')}",
+        //          dataType: 'json',
+        //          data:{'oid':oid,'psw':psw,'final_money':final_money,'type':'back'},
+        //          success: function(data){ 
+        //          	$('.error-tip').text(data.msg);
+        //          	if(data.code==1){
+        //          		click=1;
+        //          	}else{
+        //          		click=0;
+        //          	}
+        //          	if(data.url!=''){
+        //          		if(back=='1' && data.code==1){
+        //          			location.href=data.url; 
+	    //                	 }else{
+	    //                		setTimeout(function(){
+	    //              			location.href=data.url;
+	    //                      },2000);
+	    //                	 } 
+        //          	} 
+        //          },
+        //          error: function(event, XMLHttpRequest, ajaxOptions, thrownError){ 
+        //           	 msg('服务器连接失败',event.responseText); 
+        //          }
+        //      });
+    	// 	 return false;
             
-        });
+        // });
 
         // 延期
-        $('.delay-btn').click(function(){
-        	if(click==0){
-       		 	click=1;
-	       	 }else{
-	       		 return false;
-	       	 }
-        	 $('.error-tip').text('正在提交，请勿重复操作!');
+        // $('.delay-btn').click(function(){
+        // 	if(click==0){
+       	// 	 	click=1;
+	    //    	 }else{
+	    //    		 return false;
+	    //    	 }
+        // 	 $('.error-tip').text('正在提交，请勿重复操作!');
            
-            var day=$.trim($('.pop_up3  input[name="delay_date"]').val());
-            var psw=$.trim($('.pop_up3  input[name="password"]').val());
+        //     var day=$.trim($('.pop_up3  input[name="delay_date"]').val());
+        //     var psw=$.trim($('.pop_up3  input[name="password"]').val());
            
-    		 if(!isPassword(psw)){
-    			 $('.error-tip').text('请输入6位数字密码');
-    			 return false;
-    		 }
-    		 $.ajax({
-                 type: 'POST',
-                 url: "{:url('user/info/ajax_reply')}",
-                 dataType: 'json',
-                 data:{'oid':oid,'psw':psw,'day':day,'type':'delay'},
-                 success: function(data){
-                	 if(data.code==1){
-                  		click=1;
-                  	}else{
-                  		click=0;
-                  	}
-                 	$('.error-tip').text(data.msg);
-                 	if(data.url!=''){
-                 		setTimeout(function(){
-                 			location.href=data.url;
-                         },2000);
-                 	}
+    	// 	 if(!isPassword(psw)){
+    	// 		 $('.error-tip').text('请输入6位数字密码');
+    	// 		 return false;
+    	// 	 }
+    	// 	 $.ajax({
+        //          type: 'POST',
+        //          url: "{:url('user/info/ajax_reply')}",
+        //          dataType: 'json',
+        //          data:{'oid':oid,'psw':psw,'day':day,'type':'delay'},
+        //          success: function(data){
+        //         	 if(data.code==1){
+        //           		click=1;
+        //           	}else{
+        //           		click=0;
+        //           	}
+        //          	$('.error-tip').text(data.msg);
+        //          	if(data.url!=''){
+        //          		setTimeout(function(){
+        //          			location.href=data.url;
+        //                  },2000);
+        //          	}
                  	 
-                 },
+        //          },
                  
-                 error: function(event, XMLHttpRequest, ajaxOptions, thrownError){
+        //          error: function(event, XMLHttpRequest, ajaxOptions, thrownError){
                  	 
-                 	click=0;
-                 	 msg('服务器连接失败',event.responseText);
+        //          	click=0;
+        //          	 msg('服务器连接失败',event.responseText);
                   
-                 }
-             });
-    		 return false;
-        });
+        //          }
+        //      });
+    	// 	 return false;
+        // });
 
 
         // 借条详情

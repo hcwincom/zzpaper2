@@ -21,7 +21,7 @@
                     <p class="affirm_content">请确认保线下达成借贷合意或已交易完毕，输入密码后借款借款人将收到您的延期申请，等待回复！</p>
                 </div>
 
-                <p class="error-tip red"></p>
+                <p class="error-tip red errorTxt"></p>
                 <div class="backg-tblue affirm_btn">
                     <a href="javascript:void(0);" class='blue-text sure-btn-2'>确认</a>
                 </div>
@@ -61,7 +61,8 @@
                 },
 
                 error: function (event, XMLHttpRequest, ajaxOptions, thrownError) {
-                    msg('服务器连接失败', event.responseText);
+                    $('.error-tip').text(服务器连接失败);
+                    // msg('服务器连接失败', event.responseText);
                 }
             });
             return false;

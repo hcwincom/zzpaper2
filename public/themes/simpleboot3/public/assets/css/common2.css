@@ -162,6 +162,10 @@ img{transform:scale(1) translateZ(0)}
 .error-tip{
   transition:all .8s ease-in-out;
 }
+.errorTxt{
+    height: 2.4rem;
+    line-height: 2.4rem;
+}
 .height-37{
     height:37px;
     line-height:37px;

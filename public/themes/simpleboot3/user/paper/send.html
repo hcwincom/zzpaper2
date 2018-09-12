@@ -160,30 +160,30 @@
          });
         
          // 借条表单验证
-          $(".btnsub").click(function () {
-              var money = $.trim($('input[name="borrowing_balance"]').val());
-              var name = $.trim($('input[name="name"]').val());
-              var use = $.trim($('input[name="usage_loan"]').val());
-              console.log("tt");
-              console.log(use);
-              if (money == '' || isMoney(money) == false) {
-                  $('.error-tip').text('提示：请输入正确金额');
-                  $('input[name="borrowing_balance"]').focus();
-                  return false;
-              } if (name == '') {
-                  $('.error-tip').text('提示：请输入对方姓名');
-                  $('input[name="name"]').focus();
-                  return false;
-              } else if ($('input[type="checkbox"]').prop('checked') == false) {
-                  $('.error-tip').text('提示：请确认已阅读用户协议');
-                  return false;
-              }
+        //   $(".btnsub").click(function () {
+        //       var money = $.trim($('input[name="borrowing_balance"]').val());
+        //       var name = $.trim($('input[name="name"]').val());
+        //       var use = $.trim($('input[name="usage_loan"]').val());
+        //       console.log("tt");
+        //       console.log(use);
+        //       if (money == '' || isMoney(money) == false) {
+        //           $('.error-tip').text('提示：请输入正确金额');
+        //           $('input[name="borrowing_balance"]').focus();
+        //           return false;
+        //       } if (name == '') {
+        //           $('.error-tip').text('提示：请输入对方姓名');
+        //           $('input[name="name"]').focus();
+        //           return false;
+        //       } else if ($('input[type="checkbox"]').prop('checked') == false) {
+        //           $('.error-tip').text('提示：请确认已阅读用户协议');
+        //           return false;
+        //       }
 
-            //   $('.pop_up .promit-html').text('你确定要发起借条吗？');
-            //   $('.error-tip').text('');
-            //   $('.pop_up').show();
-              return false;
-            });
+        //       $('.pop_up .promit-html').text('你确定要发起借条吗？');
+        //       $('.error-tip').text('');
+        //       $('.pop_up').show();
+        //       return false;
+        //     });
         
          // 输入密码，确定
 

@@ -211,7 +211,7 @@ class InfoController extends UserBaseController
     /* 提交申请 */
     public function ajax_reply(){
         
-        $data=$this->request->param('');
+        $data=$this->request->param();
         $m_reply=Db::name('reply');
         $m_paper=Db::name('paper');
         
