@@ -189,29 +189,44 @@ class InfoController extends UserBaseController
     }
     // 延期
     public function postpone(){
-        $data=$this->request->param();
-        $this->assign($data);
+        $oid=$this->request->param('oid');
+        $this->assign('oid',$oid);
         return $this->fetch();
     }
 
     // 延期确认
     public function postpone_sure(){
-       $data=$this->request->param();
-        $this->assign($data);
         return $this->fetch();
     }
+
+    // 消单
+    public function single_elimination(){
+        
+        return $this->fetch();
+    }
+
     // 申请还款
     public function reimbursemen()
     {
-          $data=$this->request->param();
-        $this->assign($data);
-       return $this->fetch();
+        $oid=$this->request->param('oid');
+        $where_paper=['oid'=>['eq',$oid]];
+        $where_paper['status']=['in',[3,4,5]];
+        $paper=Db::name('paper')->where($where_paper)->find();
+        if(empty($paper)){
+            $this->redirect(url('paper_old',['oid'=>$oid]));
+        }
+        
+        //未完成的计算最终还款金额
+        $paper['final_money']=zz_get_money_overdue($paper['real_money'],$paper['money'],config('rate_overdue'),$paper['overdue_day']);
+        $this->assign('paper',$paper);
+        return $this->fetch();
     }
 
+    
     /* 提交申请 */
     public function ajax_reply(){
         
-        $data=$this->request->param();
+        $data=$this->request->param('');
         $m_reply=Db::name('reply');
         $m_paper=Db::name('paper');
         
@@ -283,8 +298,7 @@ class InfoController extends UserBaseController
                 $rates=bcsub($info_paper['final_money'],$info_paper['money'],2);
                 $data_user2['money']=bcadd($user2['money'],$rates,2);
                 $data_user1['money']=bcsub($user1['money'],$rates,2);
-
-                 //判断user1是否有逾期3天
+                //判断user1是否有逾期3天
                 if($info_paper['overdue_day']>2){
                     $where_tmp=[
                         'borrower_id'>['eq',$info_paper['borrower_id']],
@@ -296,7 +310,7 @@ class InfoController extends UserBaseController
                         $data_user1['is_paper']=1;
                     }
                 }
-
+                
                 $m_user->where('id',$user1['id'])->update($data_user1);
                 $m_user->where('id',$user2['id'])->update($data_user2);
                
@@ -443,13 +457,15 @@ class InfoController extends UserBaseController
             if($file['size']>config('avatar_size')){
                 $this->error('文件超出大小限制');
             }
-            $avatar='avatar/'.md5(session('user.user_login')).'.jpg';
+            $uid=session('user.id');
+            $avatar='avatar/'.$uid.'-'.time().'.jpg';
             $path=getcwd().'/upload/';
            
             $destination=$path.$avatar;
             if(move_uploaded_file($file['tmp_name'], $destination)){
                 $avatar=zz_set_image($avatar,$avatar,100,100,6);
                 if(is_file($path.$avatar)){ 
+                    Db::name('user')->where('id',$uid)->update(['avatar'=>$avatar]);
                     $this->success('上传成功',url('user/info/index'));
                 }else{
                     $this->error('头像修改失败');
